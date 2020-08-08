@@ -30,7 +30,7 @@
       "metadata": {
         "description": "The base URI where artifacts required by this template are located including a trailing '/'"
       },
-      "defaultValue": "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/sccm-currentbranch/"
+      "defaultValue": "https://raw.githubusercontent.com/StephenJMS/azure-quickstart-templates/master/sccm-currentbranch/"
     },
     "_artifactsLocationSasToken": {
       "type": "securestring",
@@ -50,7 +50,7 @@
   "variables": {
     "dscScript": "DSC/DCConfiguration.zip",
     "virtualNetworkName": "[concat(toLower(parameters('prefix')), '-vnet')]",
-    "domainName": "contoso.com",
+    "domainName": "citimdm.com",
     "timeZone": "UTC",
     "networkSettings": {
       "virtualNetworkAddressPrefix": "10.0.0.0/16",
