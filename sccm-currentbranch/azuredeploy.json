@@ -25,6 +25,15 @@
         "description": "Input must meet password complexity requirements as documented for property 'adminPassword' in https://docs.microsoft.com/en-us/rest/api/compute/virtualmachines/virtualmachines-create-or-update"
       }
     },
+    "adDomainName": {
+      "type": "string",
+      "minLength": 5,
+      "maxLength": 20,
+      "defaultValue": "contoso.com",
+      "metadata": {
+        "description": "Domain Name that will be used for creating the environment - default is contoso.com"
+      }
+    },
     "_artifactsLocation": {
       "type": "string",
       "metadata": {
@@ -50,7 +59,7 @@
   "variables": {
     "dscScript": "DSC/DCConfiguration.zip",
     "virtualNetworkName": "[concat(toLower(parameters('prefix')), '-vnet')]",
-    "domainName": "mdmciti.com",
+    "domainName": "[toLower(parameters('adDomainName'))]",
     "timeZone": "UTC",
     "networkSettings": {
       "virtualNetworkAddressPrefix": "10.0.0.0/16",
