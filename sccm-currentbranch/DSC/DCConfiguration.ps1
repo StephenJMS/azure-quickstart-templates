@@ -11,6 +11,8 @@
         [Parameter(Mandatory)]
         [String]$ClientName,
         [Parameter(Mandatory)]
+        [string]$AADCName,
+        [Parameter(Mandatory)]
         [String]$PSName,
         [Parameter(Mandatory)]
         [String]$DNSIPAddress,

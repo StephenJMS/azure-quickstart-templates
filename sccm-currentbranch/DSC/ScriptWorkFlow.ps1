@@ -41,6 +41,11 @@ else
             StartTime = ''
             EndTime = ''
         }
+        InstallAADC = @{
+            Status = 'NoStart'
+            StartTime = ''
+            EndTime = ''
+        }
     }
     $Configuration = New-Object -TypeName psobject -Property $Actions
     $Configuration | ConvertTo-Json | Out-File -FilePath $ConfigurationFile -Force
@@ -63,5 +68,10 @@ $ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallMP.ps1"
 
 #Install Client
 $ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallClient.ps1"
+
+. $ScriptFile $DomainFullName $CMUser $ClientName $DPMPName $Role $ProvisionToolPath
+
+#Install AADC
+$ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallAADC.ps1"
 
 . $ScriptFile $DomainFullName $CMUser $ClientName $DPMPName $Role $ProvisionToolPath

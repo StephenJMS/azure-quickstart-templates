@@ -1,4 +1,4 @@
-﻿configuration Configuration
+configuration Configuration
 {
    param
    (
@@ -121,7 +121,7 @@
 
         WriteConfigurationFile WriteClientFinished
         {
-            Role = "Client"
+            Role = "AADC"
             LogPath = $LogPath
             WriteNode = "ClientFinished"
             Status = "Passed"
