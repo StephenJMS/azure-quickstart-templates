@@ -22,6 +22,14 @@ This template deploys the latest Microsoft Endpoint Configuration Manager (Confi
 * a standalone primary site with SQL Server, ADK and ConfigMgr installed. ConfigMgr is the latest general release
 * a remote site system server to host managemenent point and distribution point
 * a sccm client
+* a Azure AD Connect Server
+
+Pending Additionals
+* InTune Connector Server
+* Windows File Server
+* Windows Web Server with AD Auth
+* MS Tunnel Preview Server
+
 
 Each VM has its own public IP address and is added to a subnet protected with a Network Security Group, which only allows RDP port from Internet. 
 
