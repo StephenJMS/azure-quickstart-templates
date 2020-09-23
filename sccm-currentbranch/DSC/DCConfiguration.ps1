@@ -29,6 +29,7 @@
     $PSComputerAccount = "$DName\$PSName$"
     $DPMPComputerAccount = "$DName\$DPMPName$"
     $ClientComputerAccount = "$DName\$ClientName$"
+    $AADCComputerAccount = "$DName\$AADCName$"
 
     [System.Management.Automation.PSCredential]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
 
@@ -88,19 +89,26 @@
             DependsOn = "[InstallCA]InstallCA"
         }
 
+        VerifyComputerJoinDomain WaitForAADC
+        {
+            ComputerName = $AADCName
+            Ensure = "Present"
+            DepandsOn = "[InstallCA]InstallCA"
+        }
+
         File ShareFolder
         {            
             DestinationPath = $LogPath     
             Type = 'Directory'            
             Ensure = 'Present'
-            DependsOn = @("[VerifyComputerJoinDomain]WaitForPS","[VerifyComputerJoinDomain]WaitForDPMP","[VerifyComputerJoinDomain]WaitForClient")
+            DependsOn = @("[VerifyComputerJoinDomain]WaitForPS","[VerifyComputerJoinDomain]WaitForDPMP","[VerifyComputerJoinDomain]WaitForClient","[VerifyComputerJoinDomain]WaitForAADC")
         }
 
         FileReadAccessShare DomainSMBShare
         {
             Name   = $LogFolder
             Path =  $LogPath
-            Account = $PSComputerAccount,$DPMPComputerAccount,$ClientComputerAccount
+            Account = $PSComputerAccount,$DPMPComputerAccount,$ClientComputerAccount, $AADCComputerAccount
             DependsOn = "[File]ShareFolder"
         }
 
@@ -129,6 +137,16 @@
             Role = "DC"
             LogPath = $LogPath
             WriteNode = "ClientJoinDomain"
+            Status = "Passed"
+            Ensure = "Present"
+            DependsOn = "[FileReadAccessShare]DomainSMBShare"
+        }
+
+        WriteConfigurationFile WriteAADCJoinDomain
+        {
+            Role = "DC"
+            LogPath = $LogPath
+            WriteNode = "AADCJoinDomain"
             Status = "Passed"
             Ensure = "Present"
             DependsOn = "[FileReadAccessShare]DomainSMBShare"
