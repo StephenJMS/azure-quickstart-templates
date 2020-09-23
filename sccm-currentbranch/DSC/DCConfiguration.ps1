@@ -93,7 +93,7 @@
         {
             ComputerName = $AADCName
             Ensure = "Present"
-            DepandsOn = "[InstallCA]InstallCA"
+            DependsOn = "[InstallCA]InstallCA"
         }
 
         File ShareFolder
