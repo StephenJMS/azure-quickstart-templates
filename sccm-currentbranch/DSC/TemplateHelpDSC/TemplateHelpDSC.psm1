@@ -249,6 +249,11 @@ class WriteConfigurationFile
                     StartTime = ''
                     EndTime = ''
                 }
+                AADCJoinDomain = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
                 DelegateControl = @{
                     Status = 'NotStart'
                     StartTime = ''
@@ -266,6 +271,11 @@ class WriteConfigurationFile
                 }
                 ClientFinished = @{
                     Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+                AADCFinished = @{
+                    Status = "NotStart"
                     StartTime = ''
                     EndTime = ''
                 }

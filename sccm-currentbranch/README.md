@@ -26,9 +26,9 @@ This template deploys the latest Microsoft Endpoint Configuration Manager (Confi
 
 Pending Additionals
 * InTune Connector Server
-* Windows File Server
-* Windows Web Server with AD Auth
+* Windows File Server and Web Server role with AD Auth
 * MS Tunnel Preview Server
+* AAD Proxy
 
 
 Each VM has its own public IP address and is added to a subnet protected with a Network Security Group, which only allows RDP port from Internet. 
