@@ -123,7 +123,7 @@ configuration Configuration
         {
             Role = "AADC"
             LogPath = $LogPath
-            WriteNode = "ClientFinished"
+            WriteNode = "AADCFinished"
             Status = "Passed"
             Ensure = "Present"
             DependsOn = "[AddUserToLocalAdminGroup]AddADUserToLocalAdminGroup","[AddUserToLocalAdminGroup]AddADComputerToLocalAdminGroup"
