@@ -119,7 +119,7 @@ configuration Configuration
             DependsOn = "[FileReadAccessShare]DomainSMBShare"
         }
 
-        WriteConfigurationFile WriteClientFinished
+        WriteConfigurationFile WriteAADCFinished
         {
             Role = "AADC"
             LogPath = $LogPath
