@@ -1,4 +1,4 @@
-Param($DomainFullName,$CM,$CMUser,$DPMPName,$ClientName)
+Param($DomainFullName,$CM,$CMUser,$DPMPName,$ClientName,$AADCName)
 
 $Role = "PS1"
 $ProvisionToolPath = "$env:windir\temp\ProvisionScript"
@@ -74,4 +74,4 @@ $ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallClient.ps1"
 #Install AADC
 $ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallAADC.ps1"
 
-. $ScriptFile $DomainFullName $CMUser $ClientName $DPMPName $Role $ProvisionToolPath
+. $ScriptFile $DomainFullName $CMUser $AADCName $DPMPName $Role $ProvisionToolPath
