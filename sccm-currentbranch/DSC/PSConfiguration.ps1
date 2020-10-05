@@ -149,7 +149,7 @@
             TaskName = "ScriptWorkFlow"
             ScriptName = "ScriptWorkFlow.ps1"
             ScriptPath = $PSScriptRoot
-            ScriptArgument = "$DomainName $CM $DName\$($Admincreds.UserName) $DPMPName $ClientName"
+            ScriptArgument = "$DomainName $CM $DName\$($Admincreds.UserName) $DPMPName $ClientName $AADCName"
             Ensure = "Present"
             DependsOn = "[FileReadAccessShare]CMSourceSMBShare"
         }
