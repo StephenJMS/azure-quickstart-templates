@@ -38,6 +38,10 @@
     $DPMPComputerAccount = "$DName\$DPMPName$"
     $ClientComputerAccount = "$DName\$ClientName$"
     $AADCComputerAccount = "$DName\$AADCName$"
+    $AADProxyComputerAccount = "$DName\$AADProxyName$"
+    $InTuneGWComputerAccount = "$DName\$InTuneGWName$"
+    $TunGWComputerAccount  = "$DName\$TunGWName$"
+    $WinSvrComputerAccount = "$DName\$WinSvrName$"
 
     [System.Management.Automation.PSCredential]$DomainCreds = New-Object System.Management.Automation.PSCredential ("${DomainName}\$($Admincreds.UserName)", $Admincreds.Password)
 
@@ -137,14 +141,14 @@
             DestinationPath = $LogPath     
             Type = 'Directory'            
             Ensure = 'Present'
-            DependsOn = @("[VerifyComputerJoinDomain]WaitForPS","[VerifyComputerJoinDomain]WaitForDPMP","[VerifyComputerJoinDomain]WaitForClient","[VerifyComputerJoinDomain]WaitForAADC")
+            DependsOn = @("[VerifyComputerJoinDomain]WaitForPS","[VerifyComputerJoinDomain]WaitForDPMP","[VerifyComputerJoinDomain]WaitForClient","[VerifyComputerJoinDomain]WaitForAADC","[VerifyComputerJoinDomain]WaitForAADProxy","[VerifyComputerJoinDomain]WaitForInTuneGW","[VerifyComputerJoinDomain]WaitForTunGW","[VerifyComputerJoinDomain]WaitForWinSvr")
         }
 
         FileReadAccessShare DomainSMBShare
         {
             Name   = $LogFolder
             Path =  $LogPath
-            Account = $PSComputerAccount,$DPMPComputerAccount,$ClientComputerAccount,$AADCComputerAccount
+            Account = $PSComputerAccount,$DPMPComputerAccount,$ClientComputerAccount,$AADCComputerAccount,$AADProxyComputerAccount,$InTuneGWComputerAccount,$TunGWComputerAccount,$WinSvrComputerAccount
             DependsOn = "[File]ShareFolder"
         }
 
@@ -183,6 +187,46 @@
             Role = "DC"
             LogPath = $LogPath
             WriteNode = "AADCJoinDomain"
+            Status = "Passed"
+            Ensure = "Present"
+            DependsOn = "[FileReadAccessShare]DomainSMBShare"
+        }
+
+        WriteConfigurationFile WriteAADProxyJoinDomain
+        {
+            Role = "DC"
+            LogPath = $LogPath
+            WriteNode = "AADProxyJoinDomain"
+            Status = "Passed"
+            Ensure = "Present"
+            DependsOn = "[FileReadAccessShare]DomainSMBShare"
+        }
+
+        WriteConfigurationFile WriteInTuneGWJoinDomain
+        {
+            Role = "DC"
+            LogPath = $LogPath
+            WriteNode = "InTuneGWJoinDomain"
+            Status = "Passed"
+            Ensure = "Present"
+            DependsOn = "[FileReadAccessShare]DomainSMBShare"
+        }
+
+        WriteConfigurationFile WriteTunGWJoinDomain
+        {
+            Role = "DC"
+            LogPath = $LogPath
+            WriteNode = "TunGWJoinDomain"
+            Status = "Passed"
+            Ensure = "Present"
+            DependsOn = "[FileReadAccessShare]DomainSMBShare"
+        }
+
+        WriteConfigurationFile WriteWinSvrJoinDomain
+        {
+            Role = "DC"
+            LogPath = $LogPath
+            WriteNode = "WinSvrJoinDomain"
             Status = "Passed"
             Ensure = "Present"
             DependsOn = "[FileReadAccessShare]DomainSMBShare"
