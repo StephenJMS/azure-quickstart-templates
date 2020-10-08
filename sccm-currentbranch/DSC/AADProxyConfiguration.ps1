@@ -1,4 +1,4 @@
-﻿configuration Configuration
+configuration Configuration
 {
    param
    (
@@ -63,8 +63,8 @@
 
         InstallFeatureForSCCM InstallFeature
         {
-            Name = "DPMP"
-            Role = "Distribution Point","Management Point"
+            Name = "Client"
+            Role = "Client"
             DependsOn = "[SetCustomPagingFile]PagingSettings"
         }
 
@@ -87,7 +87,7 @@
             Role = "DC"
             MachineName = $DCName
             LogFolder = $LogFolder
-            ReadNode = "PSJoinDomain"
+            ReadNode = "AADProxyJoinDomain"
             Ensure = "Present"
             DependsOn = "[JoinDomain]JoinDomain"
         }
@@ -110,8 +110,8 @@
 
         OpenFirewallPortForSCCM OpenFirewall
         {
-            Name = "DPMP"
-            Role = "Distribution Point","Management Point"
+            Name = "Client"
+            Role = "Client"
             DependsOn = "[JoinDomain]JoinDomain"
         }
 
@@ -127,11 +127,11 @@
             DependsOn = "[FileReadAccessShare]DomainSMBShare"
         }
 
-        WriteConfigurationFile WriteDPMPFinished
+        WriteConfigurationFile WriteAADCFinished
         {
-            Role = "DPMP"
+            Role = "AADProxy"
             LogPath = $LogPath
-            WriteNode = "DPMPFinished"
+            WriteNode = "AADProxyFinished"
             Status = "Passed"
             Ensure = "Present"
             DependsOn = "[AddUserToLocalAdminGroup]AddADUserToLocalAdminGroup","[AddUserToLocalAdminGroup]AddADComputerToLocalAdminGroup"

@@ -254,6 +254,26 @@ class WriteConfigurationFile
                     StartTime = ''
                     EndTime = ''
                 }
+                AADProxyJoinDomain = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+                InTuneGWJoinDomain = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+                TunGWJoinDomain = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+                WinSvrJoinDomain = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
                 DelegateControl = @{
                     Status = 'NotStart'
                     StartTime = ''
@@ -279,6 +299,27 @@ class WriteConfigurationFile
                     StartTime = ''
                     EndTime = ''
                 }
+                AADProxyFinished = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+                InTuneGWFinished = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+                TunGWFinished = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+                WinSvrFinished = @{
+                    Status = 'NotStart'
+                    StartTime = ''
+                    EndTime = ''
+                }
+
             }
             $Configuration = New-Object -TypeName psobject -Property $Actions
             $Configuration | ConvertTo-Json | Out-File -FilePath $ConfigurationFile -Force

@@ -1,4 +1,4 @@
-Param($DomainFullName,$CM,$CMUser,$DPMPName,$ClientName,$AADCName)
+Param($DomainFullName,$CM,$CMUser,$DPMPName,$ClientName,$AADCName,$AADProxyName,$InTuneGWName,$TunGWName,$WinSvrName)
 
 $Role = "PS1"
 $ProvisionToolPath = "$env:windir\temp\ProvisionScript"
@@ -46,6 +46,26 @@ else
             StartTime = ''
             EndTime = ''
         }
+        InstallAADProxy = @{
+            Status = 'NoStart'
+            StartTime = ''
+            EndTime = ''
+        }
+        InstallInTuneGW = @{
+            Status = 'NoStart'
+            StartTime = ''
+            EndTime = ''
+        }
+        InstallTunGW = @{
+            Status = 'NoStart'
+            StartTime = ''
+            EndTime = ''
+        }
+        InstallWinSvr = @{
+            Status = 'NoStart'
+            StartTime = ''
+            EndTime = ''
+        }
     }
     $Configuration = New-Object -TypeName psobject -Property $Actions
     $Configuration | ConvertTo-Json | Out-File -FilePath $ConfigurationFile -Force
@@ -75,3 +95,23 @@ $ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallClient.ps1"
 $ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallAADC.ps1"
 
 . $ScriptFile $DomainFullName $CMUser $AADCName $DPMPName $Role $ProvisionToolPath
+
+#Install AADProxy
+$ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallAADProxy.ps1"
+
+. $ScriptFile $DomainFullName $CMUser $AADProxyName $DPMPName $Role $ProvisionToolPath
+
+#Install InTuneGW
+$ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallInTuneGW.ps1"
+
+. $ScriptFile $DomainFullName $CMUser $InTuneGWName $DPMPName $Role $ProvisionToolPath
+
+#Install TunGW
+$ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallTunGW.ps1"
+
+. $ScriptFile $DomainFullName $CMUser $TunGWName $DPMPName $Role $ProvisionToolPath
+
+#Install WinSvr
+$ScriptFile = Join-Path -Path $ProvisionToolPath -ChildPath "InstallWinSvr.ps1"
+
+. $ScriptFile $DomainFullName $CMUser $WinSvrName $DPMPName $Role $ProvisionToolPath

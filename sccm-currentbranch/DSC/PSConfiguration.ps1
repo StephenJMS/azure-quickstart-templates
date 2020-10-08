@@ -13,6 +13,14 @@
         [Parameter(Mandatory)]
         [string]$AADCName,
         [Parameter(Mandatory)]
+        [string]$AADProxyName,
+        [Parameter(Mandatory)]
+        [string]$InTuneGWName,
+        [Parameter(Mandatory)]
+        [string]$TunGWName,
+        [Parameter(Mandatory)]
+        [string]$WinSvrName,
+        [Parameter(Mandatory)]
         [String]$PSName,
         [Parameter(Mandatory)]
         [String]$DNSIPAddress,
@@ -149,7 +157,7 @@
             TaskName = "ScriptWorkFlow"
             ScriptName = "ScriptWorkFlow.ps1"
             ScriptPath = $PSScriptRoot
-            ScriptArgument = "$DomainName $CM $DName\$($Admincreds.UserName) $DPMPName $ClientName $AADCName"
+            ScriptArgument = "$DomainName $CM $DName\$($Admincreds.UserName) $DPMPName $ClientName $AADCName $AADProxyName $InTuneGWName $TunGWName $WinSvrName"
             Ensure = "Present"
             DependsOn = "[FileReadAccessShare]CMSourceSMBShare"
         }
