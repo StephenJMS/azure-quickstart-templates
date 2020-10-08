@@ -13,6 +13,14 @@ configuration Configuration
         [Parameter(Mandatory)]
         [string]$AADCName,
         [Parameter(Mandatory)]
+        [string]$AADProxyName,
+        [Parameter(Mandatory)]
+        [string]$InTuneGWName,
+        [Parameter(Mandatory)]
+        [string]$TunGWName,
+        [Parameter(Mandatory)]
+        [string]$WinSvrName,
+        [Parameter(Mandatory)]
         [String]$PSName,
         [Parameter(Mandatory)]
         [String]$DNSIPAddress,
@@ -79,7 +87,7 @@ configuration Configuration
             Role = "DC"
             MachineName = $DCName
             LogFolder = $LogFolder
-            ReadNode = "PSJoinDomain"
+            ReadNode = "AADProxyJoinDomain"
             Ensure = "Present"
             DependsOn = "[JoinDomain]JoinDomain"
         }
@@ -121,9 +129,9 @@ configuration Configuration
 
         WriteConfigurationFile WriteAADCFinished
         {
-            Role = "AADC"
+            Role = "AADProxy"
             LogPath = $LogPath
-            WriteNode = "AADCFinished"
+            WriteNode = "AADProxyFinished"
             Status = "Passed"
             Ensure = "Present"
             DependsOn = "[AddUserToLocalAdminGroup]AddADUserToLocalAdminGroup","[AddUserToLocalAdminGroup]AddADComputerToLocalAdminGroup"

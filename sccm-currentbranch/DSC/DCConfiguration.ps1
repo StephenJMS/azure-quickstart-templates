@@ -13,6 +13,14 @@
         [Parameter(Mandatory)]
         [string]$AADCName,
         [Parameter(Mandatory)]
+        [string]$AADProxyName,
+        [Parameter(Mandatory)]
+        [string]$InTuneGWName,
+        [Parameter(Mandatory)]
+        [string]$TunGWName,
+        [Parameter(Mandatory)]
+        [string]$WinSvrName,
+        [Parameter(Mandatory)]
         [String]$PSName,
         [Parameter(Mandatory)]
         [String]$DNSIPAddress,
@@ -92,6 +100,34 @@
         VerifyComputerJoinDomain WaitForAADC
         {
             ComputerName = $AADCName
+            Ensure = "Present"
+            DependsOn = "[InstallCA]InstallCA"
+        }
+
+        VerifyComputerJoinDomain WaitForAADProxy
+        {
+            ComputerName = $AADProxyName
+            Ensure = "Present"
+            DependsOn = "[InstallCA]InstallCA"
+        }
+
+        VerifyComputerJoinDomain WaitForInTuneGW
+        {
+            ComputerName = $InTuneGWName
+            Ensure = "Present"
+            DependsOn = "[InstallCA]InstallCA"
+        }
+
+        VerifyComputerJoinDomain WaitForTunGW
+        {
+            ComputerName = $TunGWName
+            Ensure = "Present"
+            DependsOn = "[InstallCA]InstallCA"
+        }
+
+        VerifyComputerJoinDomain WaitForWinSvr
+        {
+            ComputerName = $WinSvrName
             Ensure = "Present"
             DependsOn = "[InstallCA]InstallCA"
         }

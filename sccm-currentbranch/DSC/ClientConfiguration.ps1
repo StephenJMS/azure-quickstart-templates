@@ -13,6 +13,14 @@
         [Parameter(Mandatory)]
         [string]$AADCName,
         [Parameter(Mandatory)]
+        [string]$AADProxyName,
+        [Parameter(Mandatory)]
+        [string]$InTuneGWName,
+        [Parameter(Mandatory)]
+        [string]$TunGWName,
+        [Parameter(Mandatory)]
+        [string]$WinSvrName,
+        [Parameter(Mandatory)]
         [String]$PSName,
         [Parameter(Mandatory)]
         [String]$DNSIPAddress,

@@ -85,6 +85,10 @@
       "DPMP",
       "Client",
       "AADC",
+      "AADProxy",
+      "InTuneGW",
+      "TuNGW",
+      "WinSvr",
       "PS"
     ],
     "vmname": [
@@ -92,6 +96,10 @@
       "DPMP01",
       "Cl01",
       "AADC01",
+      "AADProxy01",
+      "InTuneGW01",
+      "TunGW91",
+      "WinSvr01",
       "PS01"
     ],
     "vmDiskType": [
@@ -99,9 +107,17 @@
       "Premium_LRS",
       "Premium_LRS",
       "Premium_LRS",
+      "Premium_LRS",
+      "Premium_LRS",
+      "Premium_LRS",
+      "Premium_LRS",
       "Premium_LRS"
     ],
     "vmSize": [
+      "Standard_B2s",
+      "Standard_B2s",
+      "Standard_B2s",
+      "Standard_B2s",
       "Standard_B2s",
       "Standard_B2s",
       "Standard_B2s",
@@ -133,6 +149,30 @@
         "sku": "2019-Datacenter",
         "version": "latest"
       },
+      "AADProxy": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2019-Datacenter",
+        "version": "latest"
+      },
+      "InTuneGW": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2019-Datacenter",
+        "version": "latest"
+      },
+      "TuNGW": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2019-Datacenter",
+        "version": "latest"
+      },
+      "WinSvr": {
+        "publisher": "MicrosoftWindowsServer",
+        "offer": "WindowsServer",
+        "sku": "2019-Datacenter",
+        "version": "latest"
+      },
       "PS": {
         "publisher": "MicrosoftSQLServer",
         "offer": "SQL2017-WS2016",
@@ -149,7 +189,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "vmcopy",
-        "count": 4
+        "count": 8
       },
       "dependsOn": [
         "[concat('Microsoft.Network/networkInterfaces/',toLower(parameters('prefix')),toLower(variables('vmname')[copyIndex()]), '-ni')]"
@@ -202,7 +242,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "vmcopy",
-        "count": 5
+        "count": 9
       },
       "dependsOn": [
         "[concat('Microsoft.Compute/virtualMachines/',toLower(parameters('prefix')),variables('vmname')[copyIndex()])]"
@@ -221,6 +261,10 @@
             "DPMPName": "[concat(parameters('prefix'),variables('vmname')[1])]",
             "ClientName": "[concat(parameters('prefix'),variables('vmname')[2])]",
             "AADCName": "[concat(parameters('prefix'),variables('vmname')[3])]",
+            "AADProxyName": "[concat(parameters('prefix'),variables('vmname')[4])]",
+            "InTuneGWName": "[concat(parameters('prefix'),variables('vmname')[5])]",
+            "TunGWName": "[concat(parameters('prefix'),variables('vmname')[6])]",
+            "WinSvrName": "[concat(parameters('prefix'),variables('vmname')[7])]",
             "PSName": "[concat(parameters('prefix'),variables('vmname')[4])]",
             "DNSIPAddress": "[concat(variables('networkSettings').virtualMachinesIPAddress,add(int('0'),int('4')))]",
             "AdminCreds": {
@@ -264,7 +308,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "nicopy",
-        "count": 5
+        "count": 9
       },
       "dependsOn": [
         "[concat('Microsoft.Network/virtualNetworks/', variables('virtualNetworkName'))]",
@@ -299,7 +343,7 @@
       "location": "[parameters('location')]",
       "copy": {
         "name": "ipcopy",
-        "count": 5
+        "count": 9
       },
       "properties": {
         "publicIpAllocationMethod": "[variables('networkSettings').publicIpAllocationMethod]"
@@ -331,14 +375,14 @@
     {
       "type": "Microsoft.Compute/virtualMachines",
       "apiVersion": "2018-06-01",
-      "name": "[concat(toLower(parameters('prefix')),toLower(variables('vmname')[4]))]",
+      "name": "[concat(toLower(parameters('prefix')),toLower(variables('vmname')[8]))]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[concat('Microsoft.Network/networkInterfaces/',toLower(parameters('prefix')),toLower(variables('vmname')[4]), '-ni')]"
+        "[concat('Microsoft.Network/networkInterfaces/',toLower(parameters('prefix')),toLower(variables('vmname')[8]), '-ni')]"
       ],
       "properties": {
         "osProfile": {
-          "computerName": "[concat(toLower(parameters('prefix')),toLower(variables('vmname')[4]))]",
+          "computerName": "[concat(toLower(parameters('prefix')),toLower(variables('vmname')[8]))]",
           "adminUsername": "[parameters('adminUsername')]",
           "adminPassword": "[parameters('adminPassword')]",
           "windowsConfiguration": {
@@ -347,15 +391,15 @@
           }
         },
         "hardwareProfile": {
-          "vmSize": "[variables('vmSize')[4]]"
+          "vmSize": "[variables('vmSize')[8]]"
         },
         "storageProfile": {
-          "imageReference": "[variables('imageReference')[variables('vmrole')[4]]]",
+          "imageReference": "[variables('imageReference')[variables('vmrole')[8]]]",
           "osDisk": {
-            "name": "[concat(toLower(parameters('prefix')),toLower(variables('vmname')[4]),'-OsDisk')]",
+            "name": "[concat(toLower(parameters('prefix')),toLower(variables('vmname')[8]),'-OsDisk')]",
             "createOption": "FromImage",
             "managedDisk": {
-              "storageAccountType": "[variables('vmDiskType')[4]]"
+              "storageAccountType": "[variables('vmDiskType')[8]]"
             }
           },
           "dataDisks": []
@@ -363,7 +407,7 @@
         "networkProfile": {
           "networkInterfaces": [
             {
-              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(toLower(parameters('prefix')),toLower(variables('vmname')[4]), '-ni'))]"
+              "id": "[resourceId('Microsoft.Network/networkInterfaces',concat(toLower(parameters('prefix')),toLower(variables('vmname')[8]), '-ni'))]"
             }
           ]
         },

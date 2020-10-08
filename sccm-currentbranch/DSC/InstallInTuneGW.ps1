@@ -1,11 +1,12 @@
 Param($DomainFullName,$CMUser,$ClientName,$DPMPName,$Role,$ProvisionToolPath)
 
-$logpath = $ProvisionToolPath+"\InstallAADCLog.txt"
+#ClientName is being reused as this vm is just getting basic server setup
+$logpath = $ProvisionToolPath+"\InstallInTuneGWLog.txt"
 $ConfigurationFile = Join-Path -Path $ProvisionToolPath -ChildPath "$Role.json"
 $Configuration = Get-Content -Path $ConfigurationFile | ConvertFrom-Json
 
-$Configuration.InstallAADC.Status = 'Running'
-$Configuration.InstallAADC.StartTime = Get-Date -format "yyyy-MM-dd HH:mm:ss"
+$Configuration.InstallInTuneGW.Status = 'Running'
+$Configuration.InstallInTuneGW.StartTime = Get-Date -format "yyyy-MM-dd HH:mm:ss"
 $Configuration | ConvertTo-Json | Out-File -FilePath $ConfigurationFile -Force
 
 $DomainUserName = $CMUser
@@ -76,6 +77,6 @@ while($machinelist -notcontains $ClientName)
 Install-CMClient -DeviceName $ClientName -SiteCode $SiteCode -AlwaysInstallClient $true
 "[$(Get-Date -format HH:mm:ss)]Done." | Out-File -Append $logpath
 
-$Configuration.InstallAADC.Status = 'Completed'
-$Configuration.InstallAADC.EndTime = Get-Date -format "yyyy-MM-dd HH:mm:ss"
+$Configuration.InstallInTuneGW.Status = 'Completed'
+$Configuration.InstallInTuneGW.EndTime = Get-Date -format "yyyy-MM-dd HH:mm:ss"
 $Configuration | ConvertTo-Json | Out-File -FilePath $ConfigurationFile -Force
