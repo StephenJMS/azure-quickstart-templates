@@ -1831,6 +1831,8 @@ class FileReadAccessShare
         $_Name = $this.Name
         $_Path = $this.Path
         $_Account = $this.Account
+        
+        Write-Verbose "New-SMBShare Accounts: $_Account"
 
         New-SMBShare -Name $_Name -Path $_Path -ReadAccess $_Account
     }
