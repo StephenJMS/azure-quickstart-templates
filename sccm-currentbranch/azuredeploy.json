@@ -265,11 +265,11 @@
             "InTuneGWName": "[concat(parameters('prefix'),variables('vmname')[5])]",
             "TunGWName": "[concat(parameters('prefix'),variables('vmname')[6])]",
             "WinSvrName": "[concat(parameters('prefix'),variables('vmname')[7])]",
-            "PSName": "[concat(parameters('prefix'),variables('vmname')[4])]",
+            "PSName": "[concat(parameters('prefix'),variables('vmname')[8])]",
             "DNSIPAddress": "[concat(variables('networkSettings').virtualMachinesIPAddress,add(int('0'),int('4')))]",
             "AdminCreds": {
               "UserName": "[parameters('adminUsername')]",
-              "Password": "PrivateSettingsRef:AdminPassword"
+              "Password": "PrivateSettingsRef:AdminPassword" 
             }
           }
         },
