@@ -269,7 +269,7 @@
             "DNSIPAddress": "[concat(variables('networkSettings').virtualMachinesIPAddress,add(int('0'),int('4')))]",
             "AdminCreds": {
               "UserName": "[parameters('adminUsername')]",
-              "Password": "PrivateSettingsRef:AdminPassword"
+              "Password": "PrivateSettingsRef:AdminPassword" 
             }
           }
         },
