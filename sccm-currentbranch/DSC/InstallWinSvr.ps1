@@ -1,6 +1,6 @@
 Param($DomainFullName,$CMUser,$ClientName,$DPMPName,$Role,$ProvisionToolPath)
 
-$logpath = $ProvisionToolPath+"\InstallAADCLog.txt"
+$logpath = $ProvisionToolPath+"\InstallWinSvrLog.txt"
 $ConfigurationFile = Join-Path -Path $ProvisionToolPath -ChildPath "$Role.json"
 $Configuration = Get-Content -Path $ConfigurationFile | ConvertFrom-Json
 
